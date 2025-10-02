@@ -1,0 +1,14 @@
+.containerRow {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.containerColumn {
+  gap: 0.5rem;
+}
+
+.boldRow {
+  color: var(--gray-medium);
+  font-weight: bold;
+}

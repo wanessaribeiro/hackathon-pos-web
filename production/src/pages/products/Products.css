@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  color: var(--gray-dark);
+}
+
+.page-header {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--gray-dark);
+  color: white;
+  height: 6rem;
+  position: relative;
+}
+
+.card-grid {
+  padding-top: 2.5rem;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 2rem;
+}

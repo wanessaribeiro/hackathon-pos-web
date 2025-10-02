@@ -1,0 +1,40 @@
+.card-body {
+  background-color: white;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 6px;
+  border-color: var(--gray-light);
+  color: var(--gray-dark);
+  padding: 0;
+  min-width: 26rem;
+}
+
+.title-card {
+  display: flex;
+  font-size: x-large;
+  background-color: var(--primary-medium);
+  padding: 0rem;
+  padding-left: 1.25rem;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+  height: 4rem;
+}
+
+.title {
+  margin-top: 1.25rem;
+}
+
+.card-children {
+  padding: 1.25rem;
+  padding-top: 0.25rem;
+}
+
+.icon-button {
+  background-color: transparent;
+  border-color: transparent;
+  border-style: solid;
+  outline: none;
+}

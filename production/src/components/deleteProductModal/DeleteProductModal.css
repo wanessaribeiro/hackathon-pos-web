@@ -1,0 +1,42 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.dialog-body {
+  position: absolute;
+  top: 2rem;
+  left: 0;
+  justify-items: center;
+  border: none;
+  padding: 0;
+  border-radius: 6px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  color: var(--gray-dark);
+}
+
+.button-group {
+  padding-top: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.input {
+  min-width: 25rem;
+}

@@ -1,0 +1,22 @@
+.card-body {
+  background-color: var(--gray-light);
+  border-radius: 8px;
+  color: var(--gray-dark);
+  padding: 1.15rem;
+  padding-top: 0.45rem;
+  width: 20rem;
+  height: 8rem;
+}
+
+.title-card {
+  font-size: x-large;
+}
+
+.subtitle {
+  color: var(--gray-medium);
+  font-weight: bold;
+}
+
+.link {
+  color: var(--gray-medium);
+}
