@@ -3,9 +3,9 @@ import "./Products.css";
 import Card from "../../components/card/Card";
 import { product } from "../../domain/Types";
 import TextLabel from "../../components/textLabel/TextLabel";
-import AddProductModal from "../../components/addProductModal/AddProductModal";
-import DeleteProductModal from "../../components/deleteProductModal/DeleteProductModal";
-import EditProductModal from "../../components/editProductModal/EditProductModal";
+import AddProductModal from "../../components/addProductionItemModal/AddProductionItemModal";
+import DeleteProductModal from "../../components/deleteProductionItemModal/DeleteProductionItemModal";
+import EditProductModal from "../../components/editProductionItemModal/EditProductionItemModal";
 
 const productMock: product[] = [
   {

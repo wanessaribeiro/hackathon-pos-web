@@ -5,3 +5,11 @@ export type product = {
   prodPrice: number;
   salePrice: number;
 };
+
+export type inventoryItem = {
+  id: string;
+  product: product;
+  amount: number;
+  prodQuota: number;
+  saleQuota: number;
+};
