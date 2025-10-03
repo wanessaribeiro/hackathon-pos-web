@@ -24,7 +24,7 @@
 }
 
 .title {
-  margin-top: 1.25rem;
+  margin-top: 1rem;
 }
 
 .card-children {
@@ -37,4 +37,8 @@
   border-color: transparent;
   border-style: solid;
   outline: none;
+}
+
+.icon-card {
+  height: 2rem;
 }

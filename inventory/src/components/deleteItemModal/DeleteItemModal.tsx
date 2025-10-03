@@ -1,19 +1,20 @@
-import "./DeleteProductModal.css";
+import "./DeleteItemModal.css";
 import Card from "../card/Card";
 
-type DeleteProductModalProps = {
+type DeleteItemModalProps = {
   isOpen: boolean;
   onClose: () => void;
 };
 
-const DeleteProductModal = ({ isOpen, onClose }: DeleteProductModalProps) => {
+const DeleteItemModal = ({ isOpen, onClose }: DeleteItemModalProps) => {
   return (
     <div className={isOpen ? "modal-overlay" : ""}>
       <dialog open={isOpen} className="dialog-body">
         <Card title="Confirmar exclusão" closeButton onClickClose={onClose}>
           <form>
             <p className="label-big">
-              Você tem certeza de que gostaria de excluir esse produto?
+              Você tem certeza de que gostaria de excluir esse item do
+              inventario?
             </p>
             <div className="button-group">
               <button className="tertiary-button" onClick={onClose}>
@@ -28,4 +29,4 @@ const DeleteProductModal = ({ isOpen, onClose }: DeleteProductModalProps) => {
   );
 };
 
-export default DeleteProductModal;
+export default DeleteItemModal;

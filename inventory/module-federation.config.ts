@@ -1,12 +1,12 @@
-import { createModuleFederationConfig } from '@module-federation/rsbuild-plugin';
+import { createModuleFederationConfig } from "@module-federation/rsbuild-plugin";
 
 export default createModuleFederationConfig({
-  name: 'inventory',
+  name: "inventory",
   exposes: {
-    '.': './src/components/ProviderComponent.tsx',
+    ".": "./src/pages/inventory/Inventory.tsx",
   },
   shared: {
     react: { singleton: true },
-    'react-dom': { singleton: true },
+    "react-dom": { singleton: true },
   },
 });

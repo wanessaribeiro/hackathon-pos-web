@@ -33,17 +33,17 @@ const Card = ({
         <div>
           {editButton && (
             <button onClick={onClickEdit} className="icon-button">
-              <img src={editImg} alt="Editar" />
+              <img src={editImg} alt="Editar" className="icon-card" />
             </button>
           )}
           {deleteButton && (
             <button onClick={onClickDelete} className="icon-button">
-              <img src={trashImg} alt="Apagar" />
+              <img src={trashImg} alt="Apagar" className="icon-card" />
             </button>
           )}
           {closeButton && (
             <button onClick={onClickClose} className="icon-button">
-              <img src={closeImg} alt="Fechar" />
+              <img src={closeImg} alt="Fechar" className="icon-card" />
             </button>
           )}
         </div>
