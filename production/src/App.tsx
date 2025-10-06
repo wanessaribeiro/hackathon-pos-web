@@ -1,10 +1,10 @@
-import './App.css';
-import Provider from './components/ProviderComponent';
+import "./App.css";
+import Production from "./pages/production/Production";
 
 const App = () => {
   return (
     <div className="content">
-      <Provider />
+      <Production />
     </div>
   );
 };

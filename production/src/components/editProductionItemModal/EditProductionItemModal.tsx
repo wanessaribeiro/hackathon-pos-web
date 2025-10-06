@@ -1,51 +1,72 @@
-import "./EditProductModal.css";
+import "./EditProductionItemModal.css";
 import Card from "../card/Card";
-import { product } from "../../../../products/src/domain/Types";
 import TextLabel from "../textLabel/TextLabel";
+import { prodRequest } from "../../domain/Types";
+import Dropdown from "../dropdown/Dropdown";
+import { Status } from "../../domain/Enums";
+import { useState } from "react";
 
-type EditProductModalProps = {
+type EditProductionItemModalProps = {
   isOpen: boolean;
   onClose: () => void;
-  product: product;
+  prodRequest: prodRequest;
 };
 
-const EditProductModal = ({
+const EditProductionItemModal = ({
   isOpen,
   onClose,
-  product,
-}: EditProductModalProps) => {
+  prodRequest,
+}: EditProductionItemModalProps) => {
+  const [selectedItem, setSelectedItem] = useState(prodRequest);
+
+  const onChangeStatus = (value: string) => {
+    setSelectedItem((prev) => ({ ...prev, status: value }));
+  };
+
   return (
     <div className={isOpen ? "modal-overlay" : ""}>
       <dialog open={isOpen} className="dialog-body">
-        <Card title="Adicionar novo produto" closeButton onClickClose={onClose}>
+        <Card
+          title="Editar status de produção"
+          closeButton
+          onClickClose={onClose}
+        >
           <form>
-            <TextLabel label="ID: " text={"#" + product.id} />
-            <p className="label-big">Nome do produto:</p>
+            <TextLabel label="ID: " text={"#" + prodRequest.id} />
+            <p className="label-big">Fornecedor:</p>
             <input
               className="input"
-              placeholder="Nome do produto"
-              value={product.name}
+              placeholder="Fornecedor"
+              value={prodRequest.supplier}
+              disabled
             />
-            <p className="label-big">Descrição:</p>
-            <input
-              className="input"
-              placeholder="Descrição curta"
-              value={product.desc}
+            <p className="label-big">Status:</p>
+            <Dropdown
+              options={[
+                Status.active,
+                Status.canceled,
+                Status.done,
+                Status.done,
+              ]}
+              placeholder="status"
+              selected={selectedItem.status}
+              setSelected={onChangeStatus}
             />
-            <p className="label-big">Custo de produção:</p>
-            <input
-              className="input"
-              type="number"
-              placeholder="0"
-              value={product.prodPrice}
-            />
-            <p className="label-big">Preço de venda:</p>
-            <input
-              className="input"
-              type="number"
-              placeholder="0"
-              value={product.salePrice}
-            />
+            <p className="label-big">Produtos:</p>
+            <div className="secondary-card">
+              {prodRequest.products.map((product, id) => {
+                return (
+                  <p className="table-text">
+                    {product.product.name +
+                      " - id: #" +
+                      product.product.id +
+                      " - " +
+                      product.amount +
+                      "Un"}
+                  </p>
+                );
+              })}
+            </div>
             <div className="button-group">
               <button className="tertiary-button" onClick={onClose}>
                 Cancelar
@@ -59,4 +80,4 @@ const EditProductModal = ({
   );
 };
 
-export default EditProductModal;
+export default EditProductionItemModal;
