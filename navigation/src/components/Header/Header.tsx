@@ -1,4 +1,3 @@
-import { useEffect, useRef, useState } from "react";
 import pinesImg from "./../../domain/assets/pines.png";
 import logoImg from "./../../domain/assets/CooFIAP.png";
 import logoutImg from "./../../domain/assets/logout.png";
