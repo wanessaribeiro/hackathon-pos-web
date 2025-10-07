@@ -31,7 +31,7 @@ export function InventoryProvider({
 }: Readonly<{ children: React.ReactNode }>) {
   const { account } = useAccountProvider();
 
-  const [inventory, setInventorys] = useState<inventoryItem[]>([]);
+  const [inventory, setInventory] = useState<inventoryItem[]>([]);
   const [selectedInventory, setSelectedInventory] = useState({
     amount: 1,
     id: "",
@@ -52,7 +52,7 @@ export function InventoryProvider({
   };
 
   const usePostInventory = (inventory: inventoryItem) => {
-    setInventorys((prev) => {
+    setInventory((prev) => {
       return [inventory, ...prev];
     });
 
@@ -68,7 +68,7 @@ export function InventoryProvider({
   };
 
   const usePatchInventory = (inventory: inventoryItem) => {
-    setInventorys((prev) => {
+    setInventory((prev) => {
       const editInventory = prev.find((i) => i.id === inventory.id);
       if (editInventory) Object.assign(editInventory, inventory);
       return prev;
@@ -86,7 +86,7 @@ export function InventoryProvider({
   };
 
   const useDeleteInventory = (id: string) => {
-    setInventorys((prev) => {
+    setInventory((prev) => {
       const updatedInventorys = [...prev];
       const deleteInventory = updatedInventorys.findIndex((i) => i.id === id);
       if (deleteInventory >= 0) updatedInventorys.splice(deleteInventory, 1);
