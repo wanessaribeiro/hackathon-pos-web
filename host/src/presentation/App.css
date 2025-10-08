@@ -41,6 +41,10 @@ input {
   background-color: var(--gray-light);
 }
 
+.title {
+  margin-top: 1rem;
+}
+
 .mini-input {
   background-color: white;
   margin: 0;
@@ -151,5 +155,11 @@ input {
 
 .nav-dash-body {
   display: grid;
-  grid-template-columns: 23rem auto;
+  align-content: flex-end;
+  grid-template-columns: 23.15rem auto;
+  height: 100%;
+  width: 100%;
+  gap: 0;
+  padding: 0;
+  margin: 0;
 }

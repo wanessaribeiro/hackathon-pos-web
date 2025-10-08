@@ -1,3 +1,5 @@
+import Sales from "sales";
+
 export default function SalesPage() {
-  return <p>SalesPage</p>;
+  return <Sales />;
 }

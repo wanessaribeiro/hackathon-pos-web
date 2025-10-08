@@ -1,3 +1,5 @@
+import Inventory from "inventory";
+
 export default function InventoryPage() {
-  return <p>InventoryPage</p>;
+  return <Inventory />;
 }

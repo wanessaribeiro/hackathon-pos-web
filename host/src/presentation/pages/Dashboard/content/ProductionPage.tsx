@@ -1,3 +1,5 @@
+import Production from "production";
+
 export default function ProductionPage() {
-  return <p>ProductionPage</p>;
+  return <Production />;
 }

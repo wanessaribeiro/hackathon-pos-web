@@ -1,7 +1,6 @@
 import { Outlet } from "react-router";
 import NavBar from "navbar/navigation-bar";
 import Header from "navbar/header-bar";
-import ProductsPage from "./content/ProductsPage";
 
 export default function DashboardPage() {
   return (
@@ -22,7 +21,7 @@ export default function DashboardPage() {
       />
       <div className="nav-dash-body">
         <NavBar />
-        <ProductsPage />
+        <Outlet />
       </div>
     </div>
   );
