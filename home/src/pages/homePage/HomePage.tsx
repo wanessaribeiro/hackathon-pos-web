@@ -21,7 +21,7 @@ const HomePage: React.FC = () => {
           onClickLogin={() => setIsModalLoginOpen(true)}
         />
         <div className="header-container">
-          <h1 className="title">
+          <h1 className="title-home">
             <div className="logo-container-big">
               <img src={pinesImg} alt="Pinheiros" className="pine-image-big" />
               <img src={logoImg} alt="CooFIAP" className="logo-image-big" />

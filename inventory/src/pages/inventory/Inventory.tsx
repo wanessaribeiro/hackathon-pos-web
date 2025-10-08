@@ -124,8 +124,8 @@ const Inventory: React.FC = () => {
 
   return (
     <>
-      <div className="container">
-        <div className="page-header">
+      <div className="container-inventory">
+        <div className="page-header-inventory">
           <h1>Inventario</h1>
           <button className="primary-button" onClick={onClickAddItem}>
             Adicionar itens

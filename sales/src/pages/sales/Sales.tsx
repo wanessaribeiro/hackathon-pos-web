@@ -183,8 +183,8 @@ const Sales: React.FC = () => {
 
   return (
     <>
-      <div className="container">
-        <div className="page-header">
+      <div className="container-sales">
+        <div className="page-header-sales">
           <h1>Vendas</h1>
           <button className="primary-button" onClick={onClickAddSalesItem}>
             Adicionar pedido

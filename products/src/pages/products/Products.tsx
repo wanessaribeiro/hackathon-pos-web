@@ -83,8 +83,8 @@ const Products: React.FC = () => {
 
   return (
     <>
-      <div className="container">
-        <div className="page-header">
+      <div className="container-products">
+        <div className="page-header-products">
           <h1>Produtos</h1>
           <button className="primary-button" onClick={onClickAddProduct}>
             Adicionar produto

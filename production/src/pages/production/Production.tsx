@@ -180,8 +180,8 @@ const Production: React.FC = () => {
 
   return (
     <>
-      <div className="container">
-        <div className="page-header">
+      <div className="container-production">
+        <div className="page-header-production">
           <h1>Produtos</h1>
           <button className="primary-button" onClick={onClickAddProductionItem}>
             Adicionar produto
