@@ -29,3 +29,89 @@ body {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   background-color: var(--primary-light);
 }
+
+.secondary-button {
+  background-color: var(--gray-dark);
+  border-color: var(--gray-dark);
+  color: white;
+}
+
+body {
+  margin: 0;
+  color: #fff;
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  background-color: var(--primary-light);
+}
+
+input {
+  color: var(--gray-medium);
+  font-size: large;
+  text-align: start;
+  padding: 0.5rem;
+  height: 1.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--gray-medium);
+  background-color: var(--gray-light);
+}
+
+.mini-input {
+  background-color: white;
+  margin: 0;
+  width: 2rem;
+  height: 1rem;
+}
+
+.text-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.secondary-card {
+  background-color: var(--gray-light);
+  padding-left: 0.5rem;
+  border: 1px solid var(--gray-medium-light);
+  border-radius: 8px;
+}
+
+.table-text {
+  color: var(--gray-medium);
+  padding: 0.1rem;
+  font-weight: bold;
+}
+
+.primary-button {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+  color: white;
+}
+
+.secondary-button {
+  background-color: var(--gray-dark);
+  border-color: var(--gray-dark);
+  color: white;
+}
+
+.tertiary-button {
+  background-color: var(--gray-medium);
+  border-color: var(--gray-medium);
+  color: white;
+}
+
+.label {
+  color: var(--gray-medium);
+  font-size: medium;
+  font-weight: bold;
+}
+
+.label-home {
+  color: var(--gray-dark);
+  font-size: large;
+  font-weight: bold;
+}
+
+.desc {
+  color: var(--gray-medium);
+  font-size: medium;
+}

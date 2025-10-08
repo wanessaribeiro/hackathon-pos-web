@@ -18,7 +18,7 @@
   width: 80%;
 }
 
-.logo-container {
+.logo-container-big {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -34,11 +34,11 @@
   width: 28%;
 }
 
-.pine-image {
+.pine-image-big {
   width: 20%;
 }
 
-.logo-image {
+.logo-image-big {
   width: 50%;
 }
 

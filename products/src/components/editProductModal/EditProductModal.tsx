@@ -25,12 +25,14 @@ const EditProductModal = ({
               className="input"
               placeholder="Nome do produto"
               value={product.name}
+              onChange={() => {}}
             />
             <p className="label-big">Descrição:</p>
             <input
               className="input"
               placeholder="Descrição curta"
               value={product.desc}
+              onChange={() => {}}
             />
             <p className="label-big">Custo de produção:</p>
             <input
@@ -38,6 +40,7 @@ const EditProductModal = ({
               type="number"
               placeholder="0"
               value={product.prodPrice}
+              onChange={() => {}}
             />
             <p className="label-big">Preço de venda:</p>
             <input
@@ -45,12 +48,15 @@ const EditProductModal = ({
               type="number"
               placeholder="0"
               value={product.salePrice}
+              onChange={() => {}}
             />
             <div className="button-group">
               <button className="tertiary-button" onClick={onClose}>
                 Cancelar
               </button>
-              <button className="primary-button">Adicionar</button>
+              <button className="primary-button" type="submit">
+                Adicionar
+              </button>
             </div>
           </form>
         </Card>

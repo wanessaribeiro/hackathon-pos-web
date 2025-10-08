@@ -1,18 +1,29 @@
+import { ReactElement } from "react";
+import closeImg from "./../../domain/assets/close.png";
 import "./Card.css";
 
 type CardProps = {
   title: string;
-  subtitle: string;
-  onClick?: () => void;
+  closeButton?: boolean;
+  onClickClose?: () => void;
+  children: ReactElement;
 };
 
 //TODO: colocar link
-const Card = ({ title, subtitle, onClick }: CardProps) => {
+const Card = ({ title, closeButton, onClickClose, children }: CardProps) => {
   return (
     <div className="card-body">
-      <h3 className="title-card">{title}</h3>
-      <p className="subtitle">{subtitle}</p>
-      <a className="link">Ver no Mapa</a>
+      <div className="title-card">
+        <h3 className="title-text">{title}</h3>
+        <div>
+          {closeButton && (
+            <button onClick={onClickClose} className="icon-button">
+              <img src={closeImg} alt="Fechar" className="icon-card" />
+            </button>
+          )}
+        </div>
+      </div>
+      <div className="card-children">{children}</div>
     </div>
   );
 };

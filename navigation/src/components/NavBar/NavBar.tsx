@@ -1,17 +1,17 @@
-//import { useNavigate } from "react-router";
 import "./NavBar.css";
+import { useNavigate } from "react-router";
 import box from "./../../domain/assets/package.png";
 import inventory from "./../../domain/assets/inventory.png";
 import warehouse from "./../../domain/assets/warehouse.png";
 import trolley from "./../../domain/assets/trolley.png";
 
 export default function NavBar() {
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
   const navItems = [
-    { value: "/products", label: "Produtos", img: box },
-    { value: "/products", label: "Inventario", img: inventory },
-    { value: "/inventary", label: "Vendas", img: warehouse },
-    { value: "/services", label: "Encomendas", img: trolley },
+    { value: "", label: "Produtos", img: box },
+    { value: "/inventory", label: "Inventario", img: inventory },
+    { value: "/sales", label: "Vendas", img: warehouse },
+    { value: "/production", label: "Encomendas", img: trolley },
   ];
 
   return (
@@ -19,7 +19,11 @@ export default function NavBar() {
       <ul className="nav-ul">
         {navItems.map((item, index) => {
           return (
-            <li key={index} className="nav-bar-item" onClick={() => {}}>
+            <li
+              key={index}
+              className="nav-bar-item"
+              onClick={() => navigate("/dashboard" + item.value)}
+            >
               {item.label} <img src={item.img} className="nav-icon" />
             </li>
           );

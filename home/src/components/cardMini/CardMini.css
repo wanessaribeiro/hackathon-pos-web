@@ -1,0 +1,22 @@
+.card-body-home {
+  background-color: var(--gray-light);
+  border-radius: 8px;
+  color: var(--gray-dark);
+  padding: 1.15rem;
+  padding-top: 0.45rem;
+  width: 20rem;
+  height: 8rem;
+}
+
+.title-card-home {
+  font-size: x-large;
+}
+
+.subtitle-home {
+  color: var(--gray-medium);
+  font-weight: bold;
+}
+
+.link-home {
+  color: var(--gray-medium);
+}

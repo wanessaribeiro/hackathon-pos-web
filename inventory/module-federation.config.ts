@@ -8,5 +8,6 @@ export default createModuleFederationConfig({
   shared: {
     react: { singleton: true },
     "react-dom": { singleton: true },
+    "react-router": { singleton: true },
   },
 });
