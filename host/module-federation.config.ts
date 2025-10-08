@@ -1,13 +1,15 @@
-import { createModuleFederationConfig } from '@module-federation/rsbuild-plugin';
+import { createModuleFederationConfig } from "@module-federation/rsbuild-plugin";
 
 export default createModuleFederationConfig({
-  name: 'host',
+  name: "host",
   remotes: {
-    'provider': 'rslib_provider@https://unpkg.com/module-federation-rslib-provider@latest/dist/mf/mf-manifest.json',
+    navbar: "navbar@http://localhost:3002/mf-manifest.json",
+    products: "products@http://localhost:3003/mf-manifest.json",
   },
-  shareStrategy: 'loaded-first',
+  shareStrategy: "loaded-first",
   shared: {
     react: { singleton: true },
-    'react-dom': { singleton: true },
+    "react-dom": { singleton: true },
+    "react-router": { singleton: true },
   },
 });
