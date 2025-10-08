@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   createContext,
   Dispatch,
@@ -12,6 +12,7 @@ import { productsMock } from "../mocks/productsMock";
 import PostCreateProductService from "../services/Products/PostCreateProductService";
 import DeleteProductService from "../services/Products/DeleteProductService";
 import PutEditProductService from "../services/Products/PutEditProductsService";
+import GetProductsService from "../services/Products/GetProductsService";
 
 const ProductsContext = createContext<
   | {
@@ -39,6 +40,15 @@ export function ProductProvider({
     prodPrice: 0,
     salePrice: 0,
   });
+
+  useEffect(() => {
+    const token = localStorage.getItem("cooFIAPToken");
+
+    if (token) {
+      const productsLogged = GetProductsService();
+      setProducts(productsLogged);
+    }
+  }, [account]);
 
   const useGetProduct = (id: string) => {
     const product = productsMock.find((i) => i.id === id);

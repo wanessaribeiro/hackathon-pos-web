@@ -24,7 +24,6 @@ export function AccountProvider({
     type: "",
     name: "",
   });
-  const [balance, setBalance] = useState(0);
   const [token, setToken] = useState("");
 
   const fetchAccount = async (token: string) => {
