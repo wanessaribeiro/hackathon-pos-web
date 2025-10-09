@@ -3,31 +3,43 @@ import Card from "../card/Card";
 import TextLabel from "../textLabel/TextLabel";
 import Dropdown from "../dropdown/Dropdown";
 import { Status } from "../../domain/Enums";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { saleItem } from "../../domain/Types";
 
 type EditSalesItemModalProps = {
   isOpen: boolean;
   onClose: () => void;
   saleRequest: saleItem;
+  editItem: (item: saleItem) => void;
 };
 
 const EditSalesItemModal = ({
   isOpen,
   onClose,
   saleRequest,
+  editItem,
 }: EditSalesItemModalProps) => {
   const [selectedItem, setSelectedItem] = useState(saleRequest);
 
+  useEffect(() => {
+    setSelectedItem(saleRequest);
+  }, [saleRequest]);
+
   const onChangeStatus = (value: string) => {
     setSelectedItem((prev) => ({ ...prev, status: value }));
+  };
+
+  const editStatus = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    editItem(selectedItem);
+    onClose();
   };
 
   return (
     <div className={isOpen ? "modal-overlay" : ""}>
       <dialog open={isOpen} className="dialog-body">
         <Card title="Editar status de venda" closeButton onClickClose={onClose}>
-          <form>
+          <form onSubmit={editStatus}>
             <TextLabel label="ID: " text={"#" + saleRequest.id} />
             <p className="label-big">Cliente:</p>
             <input
@@ -74,7 +86,9 @@ const EditSalesItemModal = ({
               <button className="tertiary-button" onClick={onClose}>
                 Cancelar
               </button>
-              <button className="primary-button">Editar</button>
+              <button className="primary-button" type="submit">
+                Editar
+              </button>
             </div>
           </form>
         </Card>

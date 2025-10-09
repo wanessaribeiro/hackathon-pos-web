@@ -9,15 +9,5 @@ export default async function PutEditInventoryService({
   prodQuota,
   saleQuota,
 }: PutEditInventoryDTO) {
-  const url =
-    "http://localhost:3333/inventory/" + userId + "/edit/" + inventoryId;
-
-  await fetch(url, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
-    },
-    body: JSON.stringify({ product, amount, saleQuota, prodQuota }),
-  });
+  console.log("deu certo");
 }

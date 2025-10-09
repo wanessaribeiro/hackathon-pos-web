@@ -1,11 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  createContext,
-  Dispatch,
-  SetStateAction,
-  useContext,
-  useState,
-} from "react";
+import { createContext, useContext, useState } from "react";
 import { product } from "../../domain/Types";
 import { useAccountProvider } from "./AccountContext";
 import PostCreateProductService from "../services/Products/PostCreateProductService";
@@ -16,8 +10,6 @@ import GetProductsService from "../services/Products/GetProductsService";
 const ProductsContext = createContext<
   | {
       products: product[];
-      selectedProduct: product | undefined;
-      setSelectedProduct: Dispatch<SetStateAction<product>>;
       useGetProduct: (id: string) => product | undefined;
       usePostProduct: (product: product) => void;
       usePatchProduct: (product: product) => void;
@@ -32,13 +24,6 @@ export function ProductProvider({
   const { account } = useAccountProvider();
 
   const [products, setProducts] = useState<product[]>([]);
-  const [selectedProduct, setSelectedProduct] = useState({
-    id: "0",
-    desc: "",
-    name: "",
-    prodPrice: 0,
-    salePrice: 0,
-  });
 
   useEffect(() => {
     const token = localStorage.getItem("cooFIAPToken");
@@ -106,8 +91,6 @@ export function ProductProvider({
   return (
     <ProductsContext.Provider
       value={{
-        selectedProduct,
-        setSelectedProduct,
         useGetProduct,
         usePostProduct,
         usePatchProduct,

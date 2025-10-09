@@ -1,23 +1,25 @@
 import "./AddProductionItemModal.css";
 import Card from "../card/Card";
-import TextLabel from "../textLabel/TextLabel";
-import { prodRequest } from "../../domain/Types";
+import { inventoryItem, prodRequest } from "../../domain/Types";
 import Dropdown from "../dropdown/Dropdown";
 import { Status } from "../../domain/Enums";
 import { useState } from "react";
-import { itemMock, productMock } from "../../pages/production/Production";
 
 type AddProductionItemModalProps = {
   isOpen: boolean;
   onClose: () => void;
+  inventory: inventoryItem[];
+  addItem: (item: prodRequest) => void;
 };
 
 const AddProductionItemModal = ({
   isOpen,
   onClose,
+  inventory,
+  addItem,
 }: AddProductionItemModalProps) => {
   const [newItem, setNewItem] = useState<prodRequest>({
-    id: "0",
+    id: String(Math.floor(Math.random() * 100000)),
     status: Status.new,
     products: [],
     supplier: "",
@@ -25,7 +27,7 @@ const AddProductionItemModal = ({
 
   const onChangeProducts = (value: string) => {
     setNewItem((prev) => {
-      const newProduct = itemMock.find((i) => i.product.name === value);
+      const newProduct = inventory.find((i) => i.product.name === value);
       if (!newProduct) return prev;
 
       const products = [...prev.products];
@@ -63,16 +65,14 @@ const AddProductionItemModal = ({
 
   const createItem = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!newItem.products || newItem.supplier) {
-      alert("Por favor, preencha todos os campos corretamente.");
-      return;
-    }
+    addItem(newItem);
     setNewItem({
       id: "0",
       status: Status.new,
       products: [],
       supplier: "",
     });
+    onClose();
   };
 
   return (
@@ -95,8 +95,8 @@ const AddProductionItemModal = ({
             <input className="input" value={Status.new} disabled />
             <p className="label-big">Produtos:</p>
             <Dropdown
-              options={productMock.map((product, id) => {
-                return product.name;
+              options={inventory.map((product, id) => {
+                return product.product.name;
               })}
               placeholder="selecione um produto"
               selected=""

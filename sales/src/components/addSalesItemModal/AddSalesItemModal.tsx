@@ -3,20 +3,23 @@ import Card from "../card/Card";
 import Dropdown from "../dropdown/Dropdown";
 import { Status } from "../../domain/Enums";
 import { useState } from "react";
-import { itemMock, productMock } from "../../pages/sales/Sales";
-import { saleItem } from "../../domain/Types";
+import { inventoryItem, saleItem } from "../../domain/Types";
 
 type AddProductionItemModalProps = {
   isOpen: boolean;
   onClose: () => void;
+  inventory: inventoryItem[];
+  addItem: (item: saleItem) => void;
 };
 
 const AddProductionItemModal = ({
   isOpen,
   onClose,
+  inventory,
+  addItem,
 }: AddProductionItemModalProps) => {
   const [newItem, setNewItem] = useState<saleItem>({
-    id: "0",
+    id: String(Math.floor(Math.random() * 100000)),
     status: Status.new,
     products: [],
     buyer: "",
@@ -25,7 +28,7 @@ const AddProductionItemModal = ({
 
   const onChangeProducts = (value: string) => {
     setNewItem((prev) => {
-      const newProduct = itemMock.find((i) => i.product.name === value);
+      const newProduct = inventory.find((i) => i.product.name === value);
       if (!newProduct) return prev;
 
       const products = [...prev.products];
@@ -41,13 +44,13 @@ const AddProductionItemModal = ({
   const onChangeBuyer = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
 
-    setNewItem((prev) => ({ ...prev, supplier: value }));
+    setNewItem((prev) => ({ ...prev, buyer: value }));
   };
 
   const onChangeSeller = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
 
-    setNewItem((prev) => ({ ...prev, supplier: value }));
+    setNewItem((prev) => ({ ...prev, seller: value }));
   };
 
   const onChangeAmount = (newAmount: string, id: string) => {
@@ -73,6 +76,7 @@ const AddProductionItemModal = ({
       alert("Por favor, preencha todos os campos corretamente.");
       return;
     }
+    addItem(newItem);
     setNewItem({
       id: "0",
       status: Status.new,
@@ -80,6 +84,7 @@ const AddProductionItemModal = ({
       buyer: "",
       seller: "",
     });
+    onClose();
   };
 
   return (
@@ -105,8 +110,8 @@ const AddProductionItemModal = ({
             <input className="input" value={Status.new} disabled />
             <p className="label-big">Produtos:</p>
             <Dropdown
-              options={productMock.map((product, id) => {
-                return product.name;
+              options={inventory.map((product, id) => {
+                return product.product.name;
               })}
               placeholder="selecione um produto"
               selected=""

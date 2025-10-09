@@ -1,11 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  createContext,
-  Dispatch,
-  SetStateAction,
-  useContext,
-  useState,
-} from "react";
+import { createContext, useContext, useState } from "react";
 import { useAccountProvider } from "./AccountContext";
 import { inventoryMock } from "../mocks/inventoryMock";
 import PostCreateInventoryService from "../services/Inventory/PostCreateInventoryService";
@@ -17,8 +11,6 @@ import GetInventoryService from "../services/Inventory/GetInventoryService";
 const InventoryContext = createContext<
   | {
       inventory: inventoryItem[];
-      selectedInventory: inventoryItem | undefined;
-      setSelectedInventory: Dispatch<SetStateAction<inventoryItem>>;
       useGetInventory: (id: string) => inventoryItem | undefined;
       usePostInventory: (inventory: inventoryItem) => void;
       usePatchInventory: (inventory: inventoryItem) => void;
@@ -33,19 +25,6 @@ export function InventoryProvider({
   const { account } = useAccountProvider();
 
   const [inventory, setInventory] = useState<inventoryItem[]>([]);
-  const [selectedInventory, setSelectedInventory] = useState({
-    amount: 1,
-    id: "",
-    prodQuota: 0,
-    saleQuota: 0,
-    product: {
-      id: "0",
-      desc: "",
-      name: "",
-      prodPrice: 0,
-      salePrice: 0,
-    },
-  });
 
   useEffect(() => {
     const token = localStorage.getItem("cooFIAPToken");
@@ -113,8 +92,6 @@ export function InventoryProvider({
   return (
     <InventoryContext.Provider
       value={{
-        selectedInventory,
-        setSelectedInventory,
         useGetInventory,
         usePostInventory,
         usePatchInventory,

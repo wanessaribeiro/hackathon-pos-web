@@ -15,7 +15,7 @@ const AddProductModal = ({
   postProduct,
 }: AddProductModalProps) => {
   const [newProduct, setNewProduct] = useState({
-    id: String(Math.random() * 100000),
+    id: String(Math.floor(Math.random() * 100000)),
     desc: "",
     name: "",
     prodPrice: 0,

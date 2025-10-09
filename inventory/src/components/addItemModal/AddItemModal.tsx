@@ -19,7 +19,7 @@ const AddItemModal = ({
 }: AddItemModalProps) => {
   const [newItem, setNewItem] = useState({
     amount: 1,
-    id: String(Math.random() * 100000),
+    id: String(Math.floor(Math.random() * 100000)),
     prodQuota: 0,
     saleQuota: 0,
     product: {

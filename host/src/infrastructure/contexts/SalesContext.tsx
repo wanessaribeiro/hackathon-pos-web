@@ -1,24 +1,16 @@
-import React from "react";
-import {
-  createContext,
-  Dispatch,
-  SetStateAction,
-  useContext,
-  useState,
-} from "react";
+import React, { useEffect } from "react";
+import { createContext, useContext, useState } from "react";
 import { useAccountProvider } from "./AccountContext";
 import { salesMock } from "../mocks/salesMock";
-import { Status } from "../../domain/Enums";
 import PostCreateSaleService from "../services/Sales/PostCreateSaleService";
 import PutEditSaleService from "../services/Sales/PutEditSaleService";
 import DeleteSaleService from "../services/Sales/DeleteSaleService";
 import { saleItem } from "../../domain/Types";
+import GetSalesService from "../services/Sales/GetSalesService";
 
 const SalesContext = createContext<
   | {
       sales: saleItem[];
-      selectedSales: saleItem | undefined;
-      setSelectedSales: Dispatch<SetStateAction<saleItem>>;
       useGetSales: (id: string) => saleItem | undefined;
       usePostSales: (sales: saleItem) => void;
       usePatchSales: (sales: saleItem) => void;
@@ -33,13 +25,15 @@ export function SalesProvider({
   const { account } = useAccountProvider();
 
   const [sales, setSales] = useState<saleItem[]>([]);
-  const [selectedSales, setSelectedSales] = useState<saleItem>({
-    id: "0",
-    status: Status.new,
-    products: [],
-    buyer: "",
-    seller: "",
-  });
+
+  useEffect(() => {
+    const token = localStorage.getItem("cooFIAPToken");
+
+    if (token) {
+      const productsLogged = GetSalesService();
+      setSales(productsLogged);
+    }
+  }, [account]);
 
   const useGetSales = (id: string) => {
     const sales = salesMock.find((i) => i.id === id);
@@ -95,8 +89,6 @@ export function SalesProvider({
   return (
     <SalesContext.Provider
       value={{
-        selectedSales,
-        setSelectedSales,
         useGetSales,
         usePostSales,
         usePatchSales,

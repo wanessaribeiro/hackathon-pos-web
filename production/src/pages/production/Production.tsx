@@ -1,152 +1,29 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./Production.css";
 import Card from "../../components/card/Card";
-import { inventoryItem, prodRequest, product } from "../../domain/Types";
+import { inventoryItem, prodRequest } from "../../domain/Types";
 import TextLabel from "../../components/textLabel/TextLabel";
 import EditProductionItemModal from "../../components/editProductionItemModal/EditProductionItemModal";
-import DeleteProductionItemModal from "../../components/deleteProductionItemModal/DeleteProductionItemModal";
 import AddProductionItemModal from "../../components/addProductionItemModal/AddProductionItemModal";
 import { Status } from "../../domain/Enums";
 
-export const itemMock: inventoryItem[] = [
-  {
-    amount: 1,
-    id: "12333",
-    prodQuota: 23,
-    saleQuota: 233,
-    product: {
-      id: "1233",
-      desc: "descricao do meu produto",
-      name: "produto 1",
-      prodPrice: 23,
-      salePrice: 34,
-    },
-  },
-  {
-    amount: 1,
-    id: "12343",
-    prodQuota: 23,
-    saleQuota: 233,
-    product: {
-      id: "1235",
-      desc: "descricao do meu produto",
-      name: "produto 2",
-      prodPrice: 23,
-      salePrice: 34,
-    },
-  },
-  {
-    amount: 1,
-    id: "12343",
-    prodQuota: 23,
-    saleQuota: 233,
-    product: {
-      id: "1237",
-      desc: "descricao do meu produto",
-      name: "produto 3",
-      prodPrice: 23,
-      salePrice: 34,
-    },
-  },
-];
+type ProductionProps = {
+  inventory: inventoryItem[];
+  production: prodRequest[];
+  addItem: (item: prodRequest) => void;
+  editItem: (item: prodRequest) => void;
+  deleteItem: (id: string) => void;
+};
 
-export const productMock: product[] = [
-  {
-    id: "1233",
-    desc: "descricao do meu produto",
-    name: "produto 1",
-    prodPrice: 23,
-    salePrice: 34,
-  },
-  {
-    id: "1235",
-    desc: "descricao do meu produto",
-    name: "produto 2",
-    prodPrice: 23,
-    salePrice: 34,
-  },
-  {
-    id: "1237",
-    desc: "descricao do meu produto",
-    name: "produto 3",
-    prodPrice: 23,
-    salePrice: 34,
-  },
-];
-
-const productionMock: prodRequest[] = [
-  {
-    id: "123456",
-    products: [
-      {
-        amount: 1,
-        id: "12333",
-        prodQuota: 23,
-        saleQuota: 233,
-        product: {
-          id: "1237",
-          desc: "descricao do meu produto",
-          name: "produto56",
-          prodPrice: 23,
-          salePrice: 34,
-        },
-      },
-      {
-        amount: 1,
-        id: "12343",
-        prodQuota: 23,
-        saleQuota: 233,
-        product: {
-          id: "1233",
-          desc: "descricao do meu produto",
-          name: "produto12",
-          prodPrice: 23,
-          salePrice: 34,
-        },
-      },
-    ],
-    status: Status.active,
-    supplier: "fulano",
-  },
-  {
-    id: "123676",
-    products: [
-      {
-        amount: 1,
-        id: "12333",
-        prodQuota: 23,
-        saleQuota: 233,
-        product: {
-          id: "1237",
-          desc: "descricao do meu produto",
-          name: "produto12",
-          prodPrice: 23,
-          salePrice: 34,
-        },
-      },
-      {
-        amount: 1,
-        id: "12343",
-        prodQuota: 23,
-        saleQuota: 233,
-        product: {
-          id: "1233",
-          desc: "descricao do meu produto",
-          name: "produto34",
-          prodPrice: 23,
-          salePrice: 34,
-        },
-      },
-    ],
-    status: Status.active,
-    supplier: "fulano",
-  },
-];
-
-const Production: React.FC = () => {
+const Production = ({
+  addItem,
+  deleteItem,
+  editItem,
+  inventory,
+  production,
+}: ProductionProps) => {
   const [isModalAddOpen, setIsModalAddOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
-  const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [selectedProductionItem, setSelectedProductionItem] =
     useState<prodRequest>({
       id: "0",
@@ -174,10 +51,6 @@ const Production: React.FC = () => {
     setIsModalEditOpen(false);
   };
 
-  const onClickDeleteProductionItem = () => {
-    setIsModalDeleteOpen(true);
-  };
-
   return (
     <>
       <div className="container-production">
@@ -188,15 +61,15 @@ const Production: React.FC = () => {
           </button>
         </div>
         <div className="card-grid">
-          {productionMock.map((item, id) => {
+          {production.map((item, id) => {
             return (
               <Card
-                title={"Pedido #" + id}
+                title={"Pedido #" + item.id}
                 key={id}
                 editButton
                 onClickEdit={() => onClickEditProductionItem(item)}
                 deleteButton
-                onClickDelete={onClickDeleteProductionItem}
+                onClickDelete={() => deleteItem(item.id)}
               >
                 <div>
                   <TextLabel label="ID: " text={"#" + item.id} row />
@@ -226,17 +99,15 @@ const Production: React.FC = () => {
       <AddProductionItemModal
         isOpen={isModalAddOpen}
         onClose={() => setIsModalAddOpen(false)}
+        inventory={inventory}
+        addItem={addItem}
       />
 
       <EditProductionItemModal
         isOpen={isModalEditOpen}
         prodRequest={selectedProductionItem}
         onClose={onCloseEditProductionItem}
-      />
-
-      <DeleteProductionItemModal
-        isOpen={isModalDeleteOpen}
-        onClose={() => setIsModalDeleteOpen(false)}
+        editItem={editItem}
       />
     </>
   );

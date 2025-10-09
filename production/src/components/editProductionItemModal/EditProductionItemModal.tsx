@@ -4,23 +4,35 @@ import TextLabel from "../textLabel/TextLabel";
 import { prodRequest } from "../../domain/Types";
 import Dropdown from "../dropdown/Dropdown";
 import { Status } from "../../domain/Enums";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type EditProductionItemModalProps = {
   isOpen: boolean;
   onClose: () => void;
   prodRequest: prodRequest;
+  editItem: (item: prodRequest) => void;
 };
 
 const EditProductionItemModal = ({
   isOpen,
   onClose,
   prodRequest,
+  editItem,
 }: EditProductionItemModalProps) => {
   const [selectedItem, setSelectedItem] = useState(prodRequest);
 
+  useEffect(() => {
+    setSelectedItem(prodRequest);
+  }, [prodRequest]);
+
   const onChangeStatus = (value: string) => {
     setSelectedItem((prev) => ({ ...prev, status: value }));
+  };
+
+  const editStatus = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    editItem(selectedItem);
+    onClose();
   };
 
   return (
@@ -31,7 +43,7 @@ const EditProductionItemModal = ({
           closeButton
           onClickClose={onClose}
         >
-          <form>
+          <form onSubmit={editStatus}>
             <TextLabel label="ID: " text={"#" + prodRequest.id} />
             <p className="label-big">Fornecedor:</p>
             <input
@@ -71,7 +83,9 @@ const EditProductionItemModal = ({
               <button className="tertiary-button" onClick={onClose}>
                 Cancelar
               </button>
-              <button className="primary-button">Adicionar</button>
+              <button className="primary-button" type="submit">
+                Editar
+              </button>
             </div>
           </form>
         </Card>

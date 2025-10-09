@@ -6,15 +6,5 @@ export default async function PutEditProductionService({
   userId,
   status,
 }: PutEditProductionDTO) {
-  const url =
-    "http://localhost:3333/production/" + userId + "/edit/" + productionId;
-
-  await fetch(url, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
-    },
-    body: JSON.stringify({ status }),
-  });
+  console.log("deu certo");
 }
