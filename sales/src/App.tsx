@@ -1,10 +1,9 @@
 import "./App.css";
-import Sales from "./pages/sales/Sales";
 
 const App = () => {
   return (
     <div className="content">
-      <Sales />
+      <h1>Sales MFE is Running</h1>
     </div>
   );
 };

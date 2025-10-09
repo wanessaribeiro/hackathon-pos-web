@@ -4,7 +4,6 @@ import Card from "../../components/card/Card";
 import { product } from "../../domain/Types";
 import TextLabel from "../../components/textLabel/TextLabel";
 import AddProductModal from "../../components/addProductModal/AddProductModal";
-import DeleteProductModal from "../../components/deleteProductModal/DeleteProductModal";
 import EditProductModal from "../../components/editProductModal/EditProductModal";
 
 type ProductsProps = {
@@ -22,8 +21,6 @@ const Products = ({
 }: ProductsProps) => {
   const [isModalAddOpen, setIsModalAddOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
-  const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
-  const [itemId, setItemId] = useState("0");
   const [selectedProduct, setSelectedProduct] = useState<product>({
     id: "0",
     desc: "",
@@ -52,13 +49,6 @@ const Products = ({
     setIsModalEditOpen(false);
   };
 
-  const onClickDeleteProduct = (id: string) => {
-    setItemId(id);
-    setIsModalDeleteOpen(true);
-  };
-
-  const onCloseDeleteProduct = () => {};
-
   return (
     <>
       <div className="container-products">
@@ -77,7 +67,7 @@ const Products = ({
                 editButton
                 onClickEdit={() => onClickEditProduct(item)}
                 deleteButton
-                onClickDelete={() => onClickDeleteProduct(item.id)}
+                onClickDelete={() => deleteProduct(item.id)}
               >
                 <div>
                   <TextLabel label="ID: " text={"#" + item.id} row />
@@ -110,13 +100,6 @@ const Products = ({
         product={selectedProduct}
         onClose={onCloseEditProduct}
         editProduct={editProduct}
-      />
-
-      <DeleteProductModal
-        isOpen={isModalDeleteOpen}
-        onClose={() => setIsModalDeleteOpen(false)}
-        deleteProduct={deleteProduct}
-        id={itemId}
       />
     </>
   );

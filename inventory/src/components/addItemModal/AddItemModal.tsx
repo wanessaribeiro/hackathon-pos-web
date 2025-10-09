@@ -1,19 +1,25 @@
 import "./AddItemModal.css";
 import Card from "../card/Card";
 import Dropdown from "../dropdown/Dropdown";
-import { product } from "../../domain/Types";
+import { inventoryItem, product } from "../../domain/Types";
 import { useState } from "react";
 
 type AddItemModalProps = {
   isOpen: boolean;
   onClose: () => void;
   products: product[];
+  addItem: (item: inventoryItem) => void;
 };
 
-const AddItemModal = ({ isOpen, onClose, products }: AddItemModalProps) => {
+const AddItemModal = ({
+  isOpen,
+  onClose,
+  products,
+  addItem,
+}: AddItemModalProps) => {
   const [newItem, setNewItem] = useState({
     amount: 1,
-    id: "",
+    id: String(Math.random() * 100000),
     prodQuota: 0,
     saleQuota: 0,
     product: {
@@ -26,7 +32,14 @@ const AddItemModal = ({ isOpen, onClose, products }: AddItemModalProps) => {
   });
 
   const onChangeProduct = (value: string) => {
-    setNewItem((prev) => ({ ...prev, type: value }));
+    setNewItem((prev) => {
+      const newProduct = products.find((i) => i.name === value);
+      if (!newProduct) return prev;
+      return {
+        ...prev,
+        product: newProduct,
+      };
+    });
   };
 
   const onChangeProdQuota = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,6 +69,7 @@ const AddItemModal = ({ isOpen, onClose, products }: AddItemModalProps) => {
       alert("Por favor, preencha todos os campos corretamente.");
       return;
     }
+    addItem(newItem);
     setNewItem({
       amount: 1,
       id: "",
@@ -69,6 +83,7 @@ const AddItemModal = ({ isOpen, onClose, products }: AddItemModalProps) => {
         salePrice: 0,
       },
     });
+    onClose();
   };
   return (
     <div className={isOpen ? "modal-overlay" : ""}>

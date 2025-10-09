@@ -2,16 +2,26 @@ import "./EditItemModal.css";
 import Card from "../card/Card";
 import { inventoryItem } from "./../../domain/Types";
 import TextLabel from "../textLabel/TextLabel";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type EditItemModalProps = {
   isOpen: boolean;
   onClose: () => void;
   item: inventoryItem;
+  editItem: (item: inventoryItem) => void;
 };
 
-const EditItemModal = ({ isOpen, onClose, item }: EditItemModalProps) => {
+const EditItemModal = ({
+  isOpen,
+  onClose,
+  item,
+  editItem,
+}: EditItemModalProps) => {
   const [selectedItem, setSelectedItem] = useState(item);
+
+  useEffect(() => {
+    setSelectedItem(item);
+  }, [item]);
 
   const onChangeProdQuota = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
@@ -34,8 +44,9 @@ const EditItemModal = ({ isOpen, onClose, item }: EditItemModalProps) => {
     }
   };
 
-  const editItem = (event: React.FormEvent<HTMLFormElement>) => {
+  const editSelectedItem = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    editItem(selectedItem);
     setSelectedItem({
       amount: 1,
       id: "",
@@ -49,12 +60,13 @@ const EditItemModal = ({ isOpen, onClose, item }: EditItemModalProps) => {
         salePrice: 0,
       },
     });
+    onClose();
   };
   return (
     <div className={isOpen ? "modal-overlay" : ""}>
       <dialog open={isOpen} className="dialog-body">
         <Card title="Editar produto" closeButton onClickClose={onClose}>
-          <form onSubmit={editItem}>
+          <form onSubmit={editSelectedItem}>
             <TextLabel label="ID: " text={"#" + item.id} />
             <TextLabel label="Nome do produto:" text={item.product.name} />
             <TextLabel label="Descrição:" text={item.product.desc} />
@@ -84,7 +96,7 @@ const EditItemModal = ({ isOpen, onClose, item }: EditItemModalProps) => {
                 Cancelar
               </button>
               <button className="primary-button" type="submit">
-                Adicionar
+                Editar
               </button>
             </div>
           </form>

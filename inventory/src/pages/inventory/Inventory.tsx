@@ -1,83 +1,28 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./Inventory.css";
 import Card from "../../components/card/Card";
 import { inventoryItem, product } from "../../domain/Types";
 import TextLabel from "../../components/textLabel/TextLabel";
 import AddItemModal from "../../components/addItemModal/AddItemModal";
-import DeleteItemModal from "../../components/deleteItemModal/DeleteItemModal";
 import EditItemModal from "../../components/editItemModal/EditItemModal";
 
-const itemMock: inventoryItem[] = [
-  {
-    amount: 1,
-    id: "1233",
-    prodQuota: 23,
-    saleQuota: 233,
-    product: {
-      id: "123",
-      desc: "descricao do meu produto",
-      name: "produto",
-      prodPrice: 23,
-      salePrice: 34,
-    },
-  },
-  {
-    amount: 1,
-    id: "1233",
-    prodQuota: 23,
-    saleQuota: 233,
-    product: {
-      id: "123",
-      desc: "descricao do meu produto",
-      name: "produto",
-      prodPrice: 23,
-      salePrice: 34,
-    },
-  },
-];
+type InventoryProps = {
+  products: product[];
+  inventory: inventoryItem[];
+  addItem: (item: inventoryItem) => void;
+  editItem: (item: inventoryItem) => void;
+  deleteItem: (id: string) => void;
+};
 
-const productMock: product[] = [
-  {
-    id: "123",
-    desc: "descricao do meu produto",
-    name: "produto 1",
-    prodPrice: 23,
-    salePrice: 34,
-  },
-  {
-    id: "123",
-    desc: "descricao do meu produto",
-    name: "produto 2",
-    prodPrice: 23,
-    salePrice: 34,
-  },
-  {
-    id: "123",
-    desc: "descricao do meu produto",
-    name: "produto 3",
-    prodPrice: 23,
-    salePrice: 34,
-  },
-  {
-    id: "123",
-    desc: "descricao do meu produto",
-    name: "produto 4",
-    prodPrice: 23,
-    salePrice: 34,
-  },
-  {
-    id: "123",
-    desc: "descricao do meu produto",
-    name: "produto",
-    prodPrice: 23,
-    salePrice: 34,
-  },
-];
-
-const Inventory: React.FC = () => {
+const Inventory = ({
+  products,
+  inventory,
+  addItem,
+  editItem,
+  deleteItem,
+}: InventoryProps) => {
   const [isModalAddOpen, setIsModalAddOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
-  const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<inventoryItem>({
     amount: 1,
     id: "",
@@ -118,10 +63,6 @@ const Inventory: React.FC = () => {
     setIsModalEditOpen(false);
   };
 
-  const onClickDeleteItem = () => {
-    setIsModalDeleteOpen(true);
-  };
-
   return (
     <>
       <div className="container-inventory">
@@ -132,7 +73,7 @@ const Inventory: React.FC = () => {
           </button>
         </div>
         <div className="card-grid">
-          {itemMock.map((item, id) => {
+          {inventory.map((item, id) => {
             return (
               <Card
                 title={item.product.name}
@@ -140,7 +81,7 @@ const Inventory: React.FC = () => {
                 editButton
                 onClickEdit={() => onClickEditItem(item)}
                 deleteButton
-                onClickDelete={onClickDeleteItem}
+                onClickDelete={() => deleteItem(item.id)}
               >
                 <div>
                   <TextLabel label="ID: " text={"#" + item.id} row />
@@ -170,18 +111,15 @@ const Inventory: React.FC = () => {
       <AddItemModal
         isOpen={isModalAddOpen}
         onClose={() => setIsModalAddOpen(false)}
-        products={productMock}
+        products={products}
+        addItem={addItem}
       />
 
       <EditItemModal
         isOpen={isModalEditOpen}
         item={selectedItem}
         onClose={onCloseEditItem}
-      />
-
-      <DeleteItemModal
-        isOpen={isModalDeleteOpen}
-        onClose={() => setIsModalDeleteOpen(false)}
+        editItem={editItem}
       />
     </>
   );

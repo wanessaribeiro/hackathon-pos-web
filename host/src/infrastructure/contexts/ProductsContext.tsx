@@ -47,7 +47,7 @@ export function ProductProvider({
       const productsLogged = GetProductsService();
       setProducts(productsLogged);
     }
-  }, [products]);
+  }, [account]);
 
   const useGetProduct = (id: string) => {
     const product = products.find((i) => i.id === id);

@@ -1,10 +1,9 @@
 import "./App.css";
-import Inventory from "./pages/inventory/Inventory";
 
 const App = () => {
   return (
     <div className="content">
-      <Inventory />
+      <h1>Inventory MFE is Running</h1>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   createContext,
   Dispatch,
@@ -12,6 +12,7 @@ import PostCreateInventoryService from "../services/Inventory/PostCreateInventor
 import PutEditInventoryService from "../services/Inventory/PutEditInventoryService";
 import DeleteInventoryService from "../services/Inventory/DeleteInventoryService";
 import { inventoryItem } from "../../domain/Types";
+import GetInventoryService from "../services/Inventory/GetInventoryService";
 
 const InventoryContext = createContext<
   | {
@@ -45,6 +46,15 @@ export function InventoryProvider({
       salePrice: 0,
     },
   });
+
+  useEffect(() => {
+    const token = localStorage.getItem("cooFIAPToken");
+
+    if (token) {
+      const productsLogged = GetInventoryService();
+      setInventory(productsLogged);
+    }
+  }, [account]);
 
   const useGetInventory = (id: string) => {
     const inventory = inventoryMock.find((i) => i.id === id);

@@ -1,10 +1,9 @@
 import "./App.css";
-import Production from "./pages/production/Production";
 
 const App = () => {
   return (
     <div className="content">
-      <Production />
+      <h1>Production MFE is Running</h1>
     </div>
   );
 };
