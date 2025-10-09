@@ -1,10 +1,9 @@
 import "./App.css";
-import Products from "./pages/products/Products";
 
 const App = () => {
   return (
     <div>
-      <Products />
+      <h1>Products MFE is Running</h1>
     </div>
   );
 };

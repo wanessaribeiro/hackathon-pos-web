@@ -205,7 +205,7 @@ const Production: React.FC = () => {
                   <div className="secondary-card">
                     {item.products.map((product, id) => {
                       return (
-                        <p className="table-text">
+                        <p className="table-text" key={id}>
                           {product.product.name +
                             " - id: #" +
                             product.product.id +

@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import "./HomePage.css";
+import { useNavigate } from "react-router";
 import pinesImg from "./../../domain/assets/pinesImg.png";
 import logoImg from "./../../domain/assets/CooFIAP.png";
 import headerImg from "./../../domain/assets/headerImg.png";
@@ -7,11 +8,23 @@ import Header from "../../components/header/Header";
 import CardMini from "../../components/cardMini/CardMini";
 import LoginModal from "../../components/loginModal/LoginModal";
 import CreateAccountModal from "../../components/createAccountModal/CreateAccountModal";
+import { LoginDTO } from "../../domain/dtos/account.dto";
 
-const HomePage: React.FC = () => {
+type HomeProps = {
+  onLogin: (dto: LoginDTO) => void;
+  onCreate: (dto: LoginDTO) => void;
+  token: string;
+};
+
+const HomePage = ({ onLogin, onCreate, token }: HomeProps) => {
+  const navigate = useNavigate();
   const [isModalLoginOpen, setIsModalLoginOpen] = useState(false);
   const [isModalCreateAccountOpen, setIsModalCreateAccountOpen] =
     useState(false);
+
+  useEffect(() => {
+    if (token) navigate("/dashboard");
+  }, [token, navigate]);
 
   return (
     <>
@@ -75,10 +88,12 @@ const HomePage: React.FC = () => {
       <LoginModal
         isOpen={isModalLoginOpen}
         onClose={() => setIsModalLoginOpen(false)}
+        onLogin={onLogin}
       />
       <CreateAccountModal
         isOpen={isModalCreateAccountOpen}
         onClose={() => setIsModalCreateAccountOpen(false)}
+        onCreate={onCreate}
       />
     </>
   );

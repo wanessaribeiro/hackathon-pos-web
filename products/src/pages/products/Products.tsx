@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./Products.css";
 import Card from "../../components/card/Card";
 import { product } from "../../domain/Types";
@@ -7,48 +7,23 @@ import AddProductModal from "../../components/addProductModal/AddProductModal";
 import DeleteProductModal from "../../components/deleteProductModal/DeleteProductModal";
 import EditProductModal from "../../components/editProductModal/EditProductModal";
 
-const productMock: product[] = [
-  {
-    id: "123",
-    desc: "descricao do meu produto",
-    name: "produto",
-    prodPrice: 23,
-    salePrice: 34,
-  },
-  {
-    id: "123",
-    desc: "descricao do meu produto",
-    name: "produto",
-    prodPrice: 23,
-    salePrice: 34,
-  },
-  {
-    id: "123",
-    desc: "descricao do meu produto",
-    name: "produto",
-    prodPrice: 23,
-    salePrice: 34,
-  },
-  {
-    id: "123",
-    desc: "descricao do meu produto",
-    name: "produto",
-    prodPrice: 23,
-    salePrice: 34,
-  },
-  {
-    id: "123",
-    desc: "descricao do meu produto",
-    name: "produto",
-    prodPrice: 23,
-    salePrice: 34,
-  },
-];
+type ProductsProps = {
+  products: product[];
+  postProduct: (product: product) => void;
+  editProduct: (product: product) => void;
+  deleteProduct: (id: string) => void;
+};
 
-const Products: React.FC = () => {
+const Products = ({
+  products,
+  postProduct,
+  editProduct,
+  deleteProduct,
+}: ProductsProps) => {
   const [isModalAddOpen, setIsModalAddOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
+  const [itemId, setItemId] = useState("0");
   const [selectedProduct, setSelectedProduct] = useState<product>({
     id: "0",
     desc: "",
@@ -77,9 +52,12 @@ const Products: React.FC = () => {
     setIsModalEditOpen(false);
   };
 
-  const onClickDeleteProduct = () => {
+  const onClickDeleteProduct = (id: string) => {
+    setItemId(id);
     setIsModalDeleteOpen(true);
   };
+
+  const onCloseDeleteProduct = () => {};
 
   return (
     <>
@@ -91,7 +69,7 @@ const Products: React.FC = () => {
           </button>
         </div>
         <div className="card-grid">
-          {productMock.map((item, id) => {
+          {products.map((item, id) => {
             return (
               <Card
                 title={item.name}
@@ -99,7 +77,7 @@ const Products: React.FC = () => {
                 editButton
                 onClickEdit={() => onClickEditProduct(item)}
                 deleteButton
-                onClickDelete={onClickDeleteProduct}
+                onClickDelete={() => onClickDeleteProduct(item.id)}
               >
                 <div>
                   <TextLabel label="ID: " text={"#" + item.id} row />
@@ -124,17 +102,21 @@ const Products: React.FC = () => {
       <AddProductModal
         isOpen={isModalAddOpen}
         onClose={() => setIsModalAddOpen(false)}
+        postProduct={postProduct}
       />
 
       <EditProductModal
         isOpen={isModalEditOpen}
         product={selectedProduct}
         onClose={onCloseEditProduct}
+        editProduct={editProduct}
       />
 
       <DeleteProductModal
         isOpen={isModalDeleteOpen}
         onClose={() => setIsModalDeleteOpen(false)}
+        deleteProduct={deleteProduct}
+        id={itemId}
       />
     </>
   );

@@ -23,10 +23,6 @@ const AddProductionItemModal = ({
     supplier: "",
   });
 
-  const onChangeStatus = (value: string) => {
-    setNewItem((prev) => ({ ...prev, status: value }));
-  };
-
   const onChangeProducts = (value: string) => {
     setNewItem((prev) => {
       const newProduct = itemMock.find((i) => i.product.name === value);
