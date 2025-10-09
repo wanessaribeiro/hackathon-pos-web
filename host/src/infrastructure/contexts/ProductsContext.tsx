@@ -8,7 +8,6 @@ import {
 } from "react";
 import { product } from "../../domain/Types";
 import { useAccountProvider } from "./AccountContext";
-import { productsMock } from "../mocks/productsMock";
 import PostCreateProductService from "../services/Products/PostCreateProductService";
 import DeleteProductService from "../services/Products/DeleteProductService";
 import PutEditProductService from "../services/Products/PutEditProductsService";
@@ -48,10 +47,10 @@ export function ProductProvider({
       const productsLogged = GetProductsService();
       setProducts(productsLogged);
     }
-  }, [account]);
+  }, [products]);
 
   const useGetProduct = (id: string) => {
-    const product = productsMock.find((i) => i.id === id);
+    const product = products.find((i) => i.id === id);
     return product;
   };
 

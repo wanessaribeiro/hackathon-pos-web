@@ -5,14 +5,5 @@ export default async function DeleteInventoryService({
   inventoryId,
   userId,
 }: DeleteInventoryDTO) {
-  const url =
-    "http://localhost:3333/inventory/" + userId + "/delete/" + inventoryId;
-
-  await fetch(url, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
-    },
-  });
+  console.log("deu certo");
 }

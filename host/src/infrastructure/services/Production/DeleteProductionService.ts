@@ -5,14 +5,5 @@ export default async function DeleteProductionService({
   productionId,
   userId,
 }: DeleteProductionDTO) {
-  const url =
-    "http://localhost:3333/production/" + userId + "/delete/" + productionId;
-
-  await fetch(url, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
-    },
-  });
+  console.log("deu certo");
 }

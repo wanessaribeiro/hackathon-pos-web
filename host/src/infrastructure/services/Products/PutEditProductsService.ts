@@ -9,14 +9,5 @@ export default async function PutEditProductService({
   prodPrice,
   salePrice,
 }: PutEditProductDTO) {
-  const url = "http://localhost:3333/product/" + userId + "/edit/" + productId;
-
-  await fetch(url, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
-    },
-    body: JSON.stringify({ desc, name, prodPrice, salePrice }),
-  });
+  console.log("deu certo");
 }
